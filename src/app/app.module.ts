@@ -5,7 +5,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {MaterialModule} from "./material.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SignComponent } from './auth/sign/sign.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -48,6 +48,7 @@ import {AuthService} from "./auth/auth.service";
 
   ],
   providers: [AuthService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent]
 })

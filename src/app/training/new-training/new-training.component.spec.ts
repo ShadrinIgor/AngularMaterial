@@ -35,7 +35,7 @@ describe('NewTrainingComponent', () => {
   it('should emit when the button is clicked', () => {
     button.nativeElement.click();
     component.trainingStart.subscribe(value => {
-      return expect(value).toEqual(value);
+      expect(value).toBeTruthy();
     });
   });
 

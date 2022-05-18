@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 @Injectable()
 export class AuthService {
   private user: User | undefined;
-  public authChange?: Subject<boolean>;
+  public authChange: Subject<boolean> = new Subject<boolean>();
 
   constructor(private router: Router) {
   }
@@ -16,7 +16,7 @@ export class AuthService {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
     }
-    this.authChange?.next(true);
+    this.authChange.next(true);
     this.router.navigate(['/training'])
   }
 
@@ -25,11 +25,11 @@ export class AuthService {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
     }
-    this.authChange?.next(true);
+    this.authChange.next(true);
   }
 
   logout() {
-    this.authChange?.next(false);
+    this.authChange.next(false);
   }
 
   getUser() {

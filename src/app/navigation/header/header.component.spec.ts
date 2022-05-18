@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
 import {By} from "@angular/platform-browser";
@@ -6,6 +6,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, DebugElement, ElementRef} from "@angular/core";
 import {BrowserDynamicTestingModule} from "@angular/platform-browser-dynamic/testing";
 import {AuthService} from "../../auth/auth.service";
 import {RouterTestingModule} from "@angular/router/testing";
+import {of, throwError} from "rxjs";
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -13,6 +14,7 @@ describe('HeaderComponent', () => {
   let authService: AuthService;
   let debug: DebugElement;
   let button:ElementRef;
+  let routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -43,15 +45,12 @@ describe('HeaderComponent', () => {
     })
   })
 
-  it('should authenticate when user entered to application', () => {
-    component.isAuth = false;
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(component.isAuth).toBeTruthy();
-  })
+  xit('should authenticate when user entered to application', fakeAsync(() => {
+    authService.login({email: "x@mail.ru", password: "123456"});
+    tick();
+    const navArgs = routerSpy.navigateByUrl.calls.first().args[0];
+    expect(navArgs).toEqual("/")
+  }))
 
-  it('should component destroyed when routing activated to another page', () => {
-
-  })
 
 });

@@ -5,7 +5,7 @@ import {AuthService} from "../auth.service";
 
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {RouterTestingModule} from "@angular/router/testing";
-import {ReactiveFormsModule, ValidationErrors} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {of} from "rxjs";
 import {By} from "@angular/platform-browser";
 import { MatFormFieldModule, MatHint} from "@angular/material/form-field";
@@ -76,7 +76,7 @@ describe('LoginComponent', () => {
   it('should not allow user to log in', () => {
     const formData = {
       "email": "1234667",
-      "password": "@something.com"
+      "password": "something.com"
     }
     component.loginForm.setValue(formData);
     authServiceSpy.login(formData);
@@ -84,10 +84,12 @@ describe('LoginComponent', () => {
     expect(authServiceSpy.login).toHaveBeenCalledTimes(1);
   })
 
-  xit('should submit the form  when the submit button is clicked', () => {
+  it('should submit the form  when the submit button is clicked', () => {
     const fnc = spyOn(component, 'onSubmit').and.callThrough();
     const btnElement = fixture.debugElement.query(By.css('button'))
     btnElement.nativeElement.click();
+    let form = fixture.debugElement.query(By.css('form'));
+    form.triggerEventHandler('submit', null);
     fixture.detectChanges();
     expect(fnc).toHaveBeenCalled();
   })

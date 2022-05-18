@@ -5,8 +5,12 @@ import {AuthService} from "../auth.service";
 
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {RouterTestingModule} from "@angular/router/testing";
-import {ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule, ValidationErrors} from "@angular/forms";
 import {of} from "rxjs";
+import {By} from "@angular/platform-browser";
+import { MatFormFieldModule, MatHint} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 describe('LoginComponent', () => {
@@ -18,7 +22,13 @@ describe('LoginComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
-      imports: [RouterTestingModule,  ReactiveFormsModule],
+      imports: [RouterTestingModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatFormFieldModule,
+        BrowserAnimationsModule
+      ],
       providers: [AuthService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -72,5 +82,35 @@ describe('LoginComponent', () => {
     authServiceSpy.login(formData);
     fixture.detectChanges();
     expect(authServiceSpy.login).toHaveBeenCalledTimes(1);
+  })
+
+  xit('should submit the form  when the submit button is clicked', () => {
+    const fnc = spyOn(component, 'onSubmit').and.callThrough();
+    const btnElement = fixture.debugElement.query(By.css('button'))
+    btnElement.nativeElement.click();
+    fixture.detectChanges();
+    expect(fnc).toHaveBeenCalled();
+  })
+
+  it('should create two controls in form', () => {
+    expect(component.loginForm.contains('email')).toBeTruthy();
+    expect(component.loginForm.contains('password')).toBeTruthy();
+  })
+
+  it('should display error to invalid email', () => {
+    const formData = {
+      "email": "1234667",
+      "password": "something.com"
+    }
+    component.loginForm.setValue(formData);
+    fixture.detectChanges();
+    expect(component.loginForm.controls['email'].hasError('email')).toBeTruthy();
+  })
+
+  it('should display hint under the input when user touched and  did not write', () => {
+    const element = fixture.debugElement.queryAll(By.directive(MatHint));
+    component.loginForm.markAsTouched();
+    fixture.detectChanges();
+    expect(element).toBeTruthy();
   })
 });

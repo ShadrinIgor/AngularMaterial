@@ -22,4 +22,8 @@ describe('SignComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should submit the form when button clicked', () => {
+
+  })
 });

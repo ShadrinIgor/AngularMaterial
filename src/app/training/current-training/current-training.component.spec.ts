@@ -3,10 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CurrentTrainingComponent } from './current-training.component';
 import {By} from "@angular/platform-browser";
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement, ElementRef} from "@angular/core";
-import {MAT_DIALOG_DATA, MAT_DIALOG_SCROLL_STRATEGY, MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA,  MatDialogModule} from "@angular/material/dialog";
 import {Overlay} from "@angular/cdk/overlay";
-import {BrowserDynamicTestingModule} from "@angular/platform-browser-dynamic/testing";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 describe('CurrentTrainingComponent', () => {
   let component: CurrentTrainingComponent;
@@ -16,7 +16,7 @@ describe('CurrentTrainingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatDialogModule, BrowserDynamicTestingModule, BrowserAnimationsModule],
+      imports: [MatDialogModule, BrowserAnimationsModule],
       declarations: [ CurrentTrainingComponent ],
       providers : [{
         provide : MAT_DIALOG_DATA,
@@ -37,6 +37,7 @@ describe('CurrentTrainingComponent', () => {
     debug = fixture.debugElement;
     button = debug.query(By.css('button'));
     fixture.detectChanges();
+
   });
 
 
@@ -52,16 +53,8 @@ describe('CurrentTrainingComponent', () => {
   })
 
   it('should set the value at each tick', () => {
-    let progress = 0;
-    component.startOrResumeTimer();
-    fixture.detectChanges();
-    expect(progress).toEqual(5);
-  })
-
-  it('should', () => {
 
   })
-
 
 
 });

@@ -45,7 +45,7 @@ describe('HeaderComponent', () => {
     })
   })
 
-  xit('should authenticate when user entered to application', fakeAsync(() => {
+  it('should authenticate when user entered to application', fakeAsync(() => {
     authService.login({email: "x@mail.ru", password: "123456"});
     tick();
     const navArgs = routerSpy.navigateByUrl.calls.first().args[0];

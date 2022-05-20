@@ -32,12 +32,10 @@ describe('SignComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should submit the form when button clicked', () => {
+  it('should submit the form when button clicked', () => {
     const fnc = spyOn(component, 'onSubmit').and.callThrough();
     const btnElement = fixture.debugElement.query(By.css('button'))
     btnElement.nativeElement.click();
-    let form = fixture.debugElement.query(By.css('.form'));
-    form.triggerEventHandler('submit', null);
     fixture.detectChanges();
     expect(fnc).toHaveBeenCalled();
   })
